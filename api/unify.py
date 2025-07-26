@@ -5,7 +5,7 @@ import json
 from flask import Blueprint, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from utils.converter import convert_json_files
-from models import db, Telemetry
+from models import db, TelemetryData as Telemetry
 
 unify_routes = Blueprint('unify_routes', __name__)
 
