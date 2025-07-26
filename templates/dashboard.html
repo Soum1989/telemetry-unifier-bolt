@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Telemetry Dashboard</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Device ID</th>
+            <th>Location</th>
+            <th>Timestamp</th>
+            <th>Status</th>
+            <th>Temperature</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.device_id }}</td>
+            <td>{{ row.location }}</td>
+            <td>{{ row.timestamp }}</td>
+            <td>{{ row.status }}</td>
+            <td>{{ row.temperature }}</td>
+            <td>{{ row.duration }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
