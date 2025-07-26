@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Upload Telemetry JSON Files</h2>
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="file1" class="form-label">File 1</label>
+        <input type="file" class="form-control" name="file1" required>
+    </div>
+    <div class="mb-3">
+        <label for="file2" class="form-label">File 2</label>
+        <input type="file" class="form-control" name="file2" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload & Unify</button>
+</form>
+{% endblock %}
