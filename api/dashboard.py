@@ -1,7 +1,7 @@
 # api/dashboard.py
 
 from flask import Blueprint, render_template, request
-from models import Telemetry
+from models import TelemetryData as Telemetry
 from sqlalchemy import or_
 
 dashboard_routes = Blueprint('dashboard_routes', __name__)
