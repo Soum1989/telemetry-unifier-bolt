@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask import jsonify
+from sqlalchemy.exc import OperationalError
 import os
 
-from models import db
+from models import db, TelemetryData as Telemetry
 from utils.converter import convert_json_files
 from api.unify import unify_routes
 from api.dashboard import dashboard_routes
@@ -12,9 +14,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Database setup
-basedir = os.path.abspath(os.path.dirname(__file__))
-db_path = os.path.join(basedir, "telemetry.db")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://telemetry_db_tgb2_user:URusszRgtlKIx1abGsz3EO8puD30gPBX@dpg-d236g6vgi27c73fl458g-a.singapore-postgres.render.com/telemetry_db_tgb2"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
@@ -26,6 +26,16 @@ app.register_blueprint(dashboard_routes)
 @app.route("/")
 def index():
     return {"message": "Telemetry Unifier Backend Running."}
+
+@app.route("/test-db")
+def test_db_connection():
+    try:
+        # Try running a simple query
+        db.session.execute("SELECT 1")
+        return jsonify({"status": "success", "message": "Database connected successfully!"})
+    except OperationalError as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 if __name__ == "__main__":
     with app.app_context():
