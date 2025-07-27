@@ -23,6 +23,10 @@ db.init_app(app)
 app.register_blueprint(unify_routes)
 app.register_blueprint(dashboard_routes)
 
+with app.app_context():
+        db.create_all()
+
+
 @app.route("/")
 def index():
     return {"message": "Telemetry Unifier Backend Running."}
@@ -36,6 +40,4 @@ def init_db():
         return f"Error initializing DB: {str(e)}"
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+        app.run(debug=True)
