@@ -36,6 +36,15 @@ def test_db_connection():
     except OperationalError as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route("/init-db")
+def init_db():
+    try:
+        db.create_all()
+        return jsonify({"status": "success", "message": "Tables created!"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
+
 
 if __name__ == "__main__":
     with app.app_context():
